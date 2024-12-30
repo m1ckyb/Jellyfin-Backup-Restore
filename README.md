@@ -18,9 +18,9 @@ Update the following values:
 
 * `JELLYFIN_VERSION`: currennt Jellyfin version
 * `JELLYFIN_CONFIG_DIR`: absolute path to your Jellyfin config dir
-    * If empty, the script will not backup/restore config
+    * If empty, the script will not backup the config
 * `JELLYFIN_MEDIA_DIR`: absolute path to your media dir
-    * If empty, the script will not backup/restore media
+    * If empty, the script will not backup the media
 * `BACKUP_EXISTING_CONFIG`:
     * `0`: Do not backup the existing config before restoring
     * `1`: Backup the existing config before restoring
@@ -33,18 +33,18 @@ Update the following values:
 
 ## Backup
 
-The media/config tarballs are saved in backup/jellyfin_version-year.month.day.hour.minute.second
+The media/config tarballs are saved in `backup/version-date.time`
 
 In my case, I use docker, so:
 
 ```bash
-cd <jellfin_dir>
+cd <jellyfin_dir>
 docker compose down
 
 cd <jellyfin_backup_restore>
 ./backup.sh
 
-cd <jellfin_dir>
+cd <jellyfin_dir>
 docker compose up -d
 ```
 
@@ -70,13 +70,13 @@ run:
 In my case, I use docker, so:
 
 ```bash
-cd <jellfin_dir>
+cd <jellyfin_dir>
 docker compose down
 
 cd <jellyfin_backup_restore>
 ./restore.sh <backup_directory>
 
-cd <jellfin_dir>
+cd <jellyfin_dir>
 docker compose up -d
 ```
 
@@ -85,27 +85,27 @@ docker compose up -d
 ### Config
 
 ```bash
-cd <jellfin_dir>
+cd <jellyfin_dir>
 docker compose down
 
 sudo rm -R <jellyfin_config_dir>
 cd <jellyfin_backup_restore>
 cp -Rp backup/old_config/* <jellyfin_config_dir>
 
-cd <jellfin_dir>
+cd <jellyfin_dir>
 docker compose up -d
 ```
 
 ### Media
 
 ```bash
-cd <jellfin_dir>
+cd <jellyfin_dir>
 docker compose down
 
 sudo rm -R <jellyfin_media_dir>
 cd <jellyfin_backup_restore>
 cp -Rp backup/old_media/* <jellyfin_media_dir>
 
-cd <jellfin_dir>
+cd <jellyfin_dir>
 docker compose up -d
 ```
