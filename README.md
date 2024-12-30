@@ -6,6 +6,8 @@ The backups create a tarball of Jellyfin config and/or media.
 
 It will also create a backup of the existing config in `backup/old_config` and `backup/old_media` before doing a restore (in case something goes wrong).
 
+**Important:** Make sure that you stop Jellyfin before running the backup script.
+
 ## Setup
 
 ```bash
@@ -33,8 +35,6 @@ Update the following values:
 
 The media/config tarballs are saved in backup/jellyfin_version-year.month.day.hour.minute.second
 
-Make sure that you stop Jellyfin before running the backup script.
-
 In my case, I use docker, so:
 
 ```bash
@@ -50,7 +50,22 @@ docker compose up -d
 
 ## Restore
 
-Make sure that you stop Jellyfin before running the backup script.
+The `restore.sh` script takes a single argument (the backup directory name), e.g.
+
+for:
+
+```text
+├── backup
+│   ├── 10.10.3-2024.12.31.08.36.35
+│   │   ├── jellyfin.config.tgz
+│   │   ├── jellyfin.media.tgz
+```
+
+run:
+
+```bash
+./restore.sh 10.10.3-2024.12.31.08.36.35
+```
 
 In my case, I use docker, so:
 
@@ -70,13 +85,27 @@ docker compose up -d
 ### Config
 
 ```bash
+cd <jellfin_dir>
+docker compose down
+
+sudo rm -R <jellyfin_config_dir>
 cd <jellyfin_backup_restore>
 cp -Rp backup/old_config/* <jellyfin_config_dir>
+
+cd <jellfin_dir>
+docker compose up -d
 ```
 
 ### Media
 
 ```bash
+cd <jellfin_dir>
+docker compose down
+
+sudo rm -R <jellyfin_media_dir>
 cd <jellyfin_backup_restore>
 cp -Rp backup/old_media/* <jellyfin_media_dir>
+
+cd <jellfin_dir>
+docker compose up -d
 ```
