@@ -1,1 +1,5 @@
 .env
+backup/*
+!backup/.gitkeep
+!backup/old_config/.gitkeep
+!backup/old_media/.gitkeep
