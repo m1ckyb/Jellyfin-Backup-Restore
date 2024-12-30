@@ -16,10 +16,10 @@ cp example.env .env
 
 Update the following values:
 
-* `JELLYFIN_VERSION`: currennt Jellyfin version
-* `JELLYFIN_CONFIG_DIR`: absolute path to your Jellyfin config dir
+* `JELLYFIN_VERSION`: Currennt Jellyfin version
+* `JELLYFIN_CONFIG_DIR`: Absolute path to your Jellyfin config dir
     * If empty, the script will not backup the config
-* `JELLYFIN_MEDIA_DIR`: absolute path to your media dir
+* `JELLYFIN_MEDIA_DIR`: Absolute path to your media dir
     * If empty, the script will not backup the media
 * `BACKUP_EXISTING_CONFIG`:
     * `0`: Do not backup the existing config before restoring
@@ -88,9 +88,9 @@ docker compose up -d
 cd <jellyfin_dir>
 docker compose down
 
-sudo rm -R <jellyfin_config_dir>
+sudo rm -R <jellyfin_config_dir>/*
 cd <jellyfin_backup_restore>
-cp -Rp backup/old_config/* <jellyfin_config_dir>
+cp -Rp backup/old_config/* <jellyfin_config_dir>/
 
 cd <jellyfin_dir>
 docker compose up -d
@@ -102,9 +102,9 @@ docker compose up -d
 cd <jellyfin_dir>
 docker compose down
 
-sudo rm -R <jellyfin_media_dir>
+sudo rm -R <jellyfin_media_dir>/*
 cd <jellyfin_backup_restore>
-cp -Rp backup/old_media/* <jellyfin_media_dir>
+cp -Rp backup/old_media/* <jellyfin_media_dir>/
 
 cd <jellyfin_dir>
 docker compose up -d
