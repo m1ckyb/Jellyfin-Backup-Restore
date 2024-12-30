@@ -24,27 +24,29 @@ fi
 # Restore the Jellfin config
 if [ -f ${BACKUPS}/${BACKUP_DIR}/${CONFIG_TAR} ]; then
 	if [ ${BACKUP_EXISTING_CONFIG} == "1" ]; then
-		if [ find ${BACKUPS}/old_config -mindepth 1 -maxdepth 1 | read ]; then
-			echo "${BACKUPS}/old_config is not empty, removing legacy backup data..."
+		if [ "$(ls -A ${BACKUPS}/old_config)" ]; then
+			echo "${BACKUPS}/old_config is not empty, removing legacy backup data"
 			rm -R ${BACKUPS}/old_config/*
 		fi
 		echo "backing up the existing config to ${BACKUPS}/old_config"
-		sudo mv ${JELLYFIN_CONFIG_DIR}/* ${BACKUPS}/old_config/
+		sudo cp -Rp ${JELLYFIN_CONFIG_DIR}/* ${BACKUPS}/old_config/
 	fi
 	echo "restoring Jellyfin config from ${BACKUPS}/${BACKUP_DIR}/${CONFIG_TAR}"
-	tar -zxvf ${BACKUPS}/${BACKUP_DIR}/${CONFIG_TAR} -C ${JELLYFIN_CONFIG_DIR}
+	rm -R ${JELLYFIN_CONFIG_DIR}/*
+	tar -zxf ${BACKUPS}/${BACKUP_DIR}/${CONFIG_TAR} -C ${JELLYFIN_CONFIG_DIR}
 fi
 
 # Restore the Jellyfin media
 if [ -f ${BACKUPS}/${BACKUP_DIR}/${MEDIA_TAR} ]; then
 	if [ ${BACKUP_EXISTING_MEDIA} == "1" ]; then
-		if [ find ${BACKUPS}/old_media -mindepth 1 -maxdepth 1 | read ]; then
-			echo "${BACKUPS}/old_media is not empty, removing legacy backup data..."
+		if [ $(ls -A ${BACKUPS}/old_media) ]; then
+			echo "${BACKUPS}/old_media is not empty, removing legacy backup data"
 			rm -R ${BACKUPS}/old_media/*
 		fi
 		echo "backing up the existing media to ${BACKUPS}/old_media"
-		sudo mv ${JELLYFIN_MEDIA_DIR}/* ${BACKUPS}/old_media/
+		sudo cp -Rp ${JELLYFIN_MEDIA_DIR}/* ${BACKUPS}/old_media/
 	fi
 	echo "restoring Jellyfin media from ${BACKUPS}/${BACKUP_DIR}/${MEDIA_TAR}"
-	tar -zxvf ${BACKUPS}/${BACKUP_DIR}/${MEDIA_TAR} -C ${JELLYFIN_DATA_DIR}
+	rm -R ${JELLYFIN_DATA_DIR}/*
+	tar -zxf ${BACKUPS}/${BACKUP_DIR}/${MEDIA_TAR} -C ${JELLYFIN_DATA_DIR}
 fi
