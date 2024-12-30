@@ -25,7 +25,7 @@ fi
 # Backup Jellyfin media.
 if [ ! -z ${JELLYFIN_MEDIA_DIR} ]; then
     echo "backup up Jellyfin media to ${BACKUPS}/${BACKUP_DIR}/${MEDIA_TAR}"
-    tar -zcvf ${MEDIA_TAR} -C ${JELLYFIN_MEDIA_DIR} .
+    tar -zcf ${MEDIA_TAR} -C ${JELLYFIN_MEDIA_DIR} .
 fi
 
 cd -
