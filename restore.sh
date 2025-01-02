@@ -23,7 +23,7 @@ fi
 
 # Restore the Jellfin config
 if [ -f ${BACKUPS}/${BACKUP_DIR}/${CONFIG_TAR} ]; then
-	if [ ${BACKUP_EXISTING_CONFIG} == "1" ]; then
+	if [ "${BACKUP_EXISTING_CONFIG}" == "1" ]; then
 		if [ "$(ls -A ${BACKUPS}/old_config)" ]; then
 			echo "${BACKUPS}/old_config is not empty, removing legacy backup data"
 			rm -R ${BACKUPS}/old_config/*
@@ -38,7 +38,7 @@ fi
 
 # Restore the Jellyfin media
 if [ -f ${BACKUPS}/${BACKUP_DIR}/${MEDIA_TAR} ]; then
-	if [ ${BACKUP_EXISTING_MEDIA} == "1" ]; then
+	if [ "${BACKUP_EXISTING_MEDIA}" == "1" ]; then
 		if [ $(ls -A ${BACKUPS}/old_media) ]; then
 			echo "${BACKUPS}/old_media is not empty, removing legacy backup data"
 			rm -R ${BACKUPS}/old_media/*

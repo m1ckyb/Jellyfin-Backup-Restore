@@ -16,7 +16,7 @@ cp example.env .env
 
 Update the following values:
 
-* `JELLYFIN_VERSION`: Currennt Jellyfin version
+* `JELLYFIN_VERSION`: Current Jellyfin version
 * `JELLYFIN_CONFIG_DIR`: Absolute path to your Jellyfin config dir
     * If empty, the script will not backup the config
 * `JELLYFIN_MEDIA_DIR`: Absolute path to your media dir
